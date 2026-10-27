@@ -1,0 +1,24 @@
+{
+  "name": "student-accomodation-app",
+  "version": "1.0.0",
+  "description": "A platform for students to discover and compare accommodation.",
+  "main": "index.js",
+ "scripts": {
+  "dev": "vite"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincentpapi12-byt/student-accomodation-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vincentpapi12-byt/student-accomodation-app/issues"
+  },
+  "homepage": "https://github.com/vincentpapi12-byt/student-accomodation-app#readme",
+  "dependencies": {
+    "vite": "^8.3.5"
+  }
+}
