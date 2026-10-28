@@ -448,12 +448,21 @@ header {
         flex-direction: column;
     }
 
-    .search-form input,
-    .search-form select,
-    .search-form button {
-        width: 100%;
-        min-height: 44px;
-    }
+    
+.search-form input,
+.search-form select,
+.search-form button {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+}
+
+.search-form select {
+    padding: 8px 10px;
+    font-size: 14px;
+    min-height: 38px;
+}
+
 
     #listings {
         padding: 12px;
