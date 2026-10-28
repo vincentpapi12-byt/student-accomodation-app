@@ -231,29 +231,31 @@ header {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: 18px;
-    background-color: white;
+    padding: 16px;
+    background-color: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .accommodation-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.12);
 }
 
 .accommodation-card h3 {
-    margin-top: 0;
+    margin: 0 0 8px;
     color: #0f766e;
     font-size: 18px;
+    line-height: 1.4;
 }
 
 .accommodation-card p {
-    margin: 8px 0;
+    margin: 6px 0;
     color: #475569;
     font-size: 14px;
+    line-height: 1.5;
 }
 
 .residence-image {
@@ -266,40 +268,43 @@ header {
 }
 
 .accommodation-price {
-    margin: 12px 0;
+    margin: 10px 0;
     color: #0f766e;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .accommodation-price span {
     color: #64748b;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 400;
 }
 
 .details-button {
-    margin-top: 8px;
+    display: block;
+    width: 100%;
+    margin-top: auto;
     padding: 10px 14px;
     background-color: #0f766e;
-    color: white;
+    color: #ffffff;
     border: none;
-    border-radius: 7px;
+    border-radius: 8px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease,
+                box-shadow 0.2s ease;
 }
 
 .details-button:hover {
     background-color: #115e59;
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.16);
 }
 
 .details-button:focus-visible {
     outline: 3px solid #99f6e4;
     outline-offset: 3px;
 }
-
 
 /* =========================
    7. Facilities preview

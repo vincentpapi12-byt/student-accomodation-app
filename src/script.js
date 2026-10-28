@@ -35,7 +35,7 @@ const accommodations = [
         contact: "Contact details coming soon",
         description: "Description coming soon",
         facilities: ["Wi-Fi", "Laundry", "Study area"],
-        image: "public/images/residence-example.jpg",
+        image: "/student-accomodation-app/images/residence-example.jpg",
         roomTypes: ["Single room", "Shared room"],
         availability: "To be confirmed",
     }
