@@ -2,6 +2,10 @@
 const searchForm = document.querySelector(".search-form");
 const locationInput = document.querySelector('[type="search"]');
 const searchMessage = document.querySelector(".search-message");
+const budgetFilter = document.getElementById("budget-filter");
+const sortFilter = document.getElementById("sort-filter");
+
+
 const accommodationList = document.getElementById("accommodation-list");
 const listingsSection = document.getElementById("listings");
 
@@ -31,7 +35,9 @@ const accommodations = [
         contact: "Contact details coming soon",
         description: "Description coming soon",
         facilities: ["Wi-Fi", "Laundry", "Study area"],
-       image: "public/images/residence-example.jpg"
+        image: "public/images/residence-example.jpg",
+        roomTypes: ["Single room", "Shared room"],
+        availability: "To be confirmed",
     }
 ];
 
@@ -42,6 +48,7 @@ searchForm.addEventListener("submit", function(event) {
 
     const location = locationInput.value.trim();
     const searchLocation = location.toLowerCase();
+    const maxBudget = Number(budgetFilter.value);
 
     searchMessage.textContent = "";
     accommodationList.innerHTML = "";
@@ -58,9 +65,28 @@ searchForm.addEventListener("submit", function(event) {
         return;
     }
 
-    const matchingAccommodations = accommodations.filter(
-        accommodation => accommodation.location === searchLocation
+    //Choose Budget 
+
+   const matchingAccommodations = accommodations.filter(
+    accommodation =>
+        accommodation.location === searchLocation &&
+        (!maxBudget || accommodation.price <= maxBudget)
+);
+
+//Default price Order
+
+const sortOrder = sortFilter.value;
+
+if (sortOrder === "price-low") {
+    matchingAccommodations.sort(
+        (a, b) => a.price - b.price
     );
+} else if (sortOrder === "price-high") {
+    matchingAccommodations.sort(
+        (a, b) => b.price - a.price
+    );
+}
+
 
     listingsSection.hidden = false;
 
@@ -78,8 +104,23 @@ searchForm.addEventListener("submit", function(event) {
                     >
                     <h3>${accommodation.title}</h3>
                     <p>Location: ${accommodation.location}</p>
-                    <p>Price: R${accommodation.price.toLocaleString()} per month</p>
+                        <p class="accommodation-price">
+                        R${accommodation.price.toLocaleString()}
+                        <span>/ month</span>
+                    </p>
                     <p>Type: ${accommodation.accommodationType}</p>
+
+                  ${accommodation.facilities?.length
+                        ? `<div class="facilities-preview">
+                            <strong>Facilities</strong>
+                            <div class="facility-tags">
+                                ${accommodation.facilities.map(facility =>
+                                    `<span class="facility-tag">${facility}</span>`
+                                ).join("")}
+                            </div>
+                        </div>`
+                        : `<p class="facilities-preview">Facilities not yet confirmed.</p>`
+                    }
                     <button class="details-button" type="button">View Details</button>
                 </article>
             `;
@@ -120,6 +161,28 @@ detailsContent.innerHTML = `
         </p>
 
         <p>
+            <strong>Room types:</strong>
+            ${accommodation.roomTypes?.length
+                ? accommodation.roomTypes.join(", ")
+                : "Not yet confirmed"}
+        </p>
+
+        <p>
+            <strong>Availability:</strong>
+            <span class="availability-status ${(accommodation.availability || "To be confirmed")
+            .toLowerCase()
+            .replaceAll(" ", "-") === "available"
+                ? "available"
+        : (accommodation.availability || "To be confirmed")
+            .toLowerCase()
+            .replaceAll(" ", "-") === "fully-booked"
+                ? "fully-booked"
+                : "to-be-confirmed"}">
+                ${accommodation.availability || "To be confirmed"}
+            </span>
+        </p>
+
+        <p>
             <strong>Contact:</strong>
             ${accommodation.contact}
         </p>
@@ -142,8 +205,8 @@ detailsContent.innerHTML = `
 );
 
     } else {
-        searchMessage.textContent =
-            `No residences currently listed for ${location}.`;
+       searchMessage.textContent =
+    `No residences found for ${location}. Try another location or increase your budget.`;
     }
 });
 
@@ -151,4 +214,29 @@ detailsContent.innerHTML = `
 backButton.addEventListener("click", function() {
     residenceDetails.hidden = true;
     listingsSection.hidden = false;
+});
+
+
+const menuToggle = document.getElementById("menu-toggle");
+const mainNav = document.getElementById("main-nav");
+
+menuToggle.addEventListener("click", function () {
+    const isOpen = mainNav.classList.toggle("is-open");
+
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+    );
+
+    menuToggle.textContent = isOpen ? "✕" : "☰";
+});
+
+mainNav.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+        mainNav.classList.remove("is-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        menuToggle.textContent = "☰";
+    });
 });

@@ -10,13 +10,27 @@
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/" class="logo">StudentStay</a>
+   <header>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="./" class="logo">StudentStay</a>
+
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-nav"
+        >
+            ☰
+        </button>
+
+        <div class="nav-links" id="main-nav">
             <a href="#listings">Find Accommodation</a>
             <a href="#about">About</a>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <main>
         <section class="hero">
@@ -37,6 +51,24 @@
                     placeholder="Search by location (e.g. Unit E, Gate 2)"
                     aria-label="Search accommodation by location"
                 >
+                
+                
+                <select id="budget-filter" aria-label="Maximum monthly budget">
+                    <option value="">Any budget</option>
+                    <option value="2000">Up to R2,000</option>
+                    <option value="3000">Up to R3,000</option>
+                    <option value="4000">Up to R4,000</option>
+                    <option value="5000">Up to R5,000</option>
+                </select>
+
+                            
+                <select id="sort-filter" aria-label="Sort accommodation by price">
+                    <option value="default">Default order</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+
+
                 <button type="submit">Search</button>
             </form>
 
@@ -70,3 +102,4 @@
 <script type="module" src="/src/script.js"></script>
 </body>
 </html>
+

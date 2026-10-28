@@ -1,10 +1,18 @@
 
+/* =========================
+   1. Global styles
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
+    padding: 40px;
     font-family: Arial, sans-serif;
     background-color: #f4f7fb;
     color: #1e293b;
-    margin: 0;
-    padding: 40px;
 }
 
 h1 {
@@ -13,102 +21,145 @@ h1 {
 }
 
 p {
+    color: #64748b;
     font-size: 18px;
 }
 
 
+/* =========================
+   2. Header and navigation
+========================= */
+
 header {
-    background-color: #0f766e;
+    position: relative;
     padding: 20px;
+    background-color: #0f766e;
     border-radius: 10px;
 }
 
-nav {
+.site-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-nav a {
+.site-nav .logo {
     color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav .logo {
     font-size: 22px;
-  
+    font-weight: bold;
+    text-decoration: none;
 }
 
-nav a:hover {
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-links a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
     color: #ccfbf1;
 }
 
-p {
-    color:darkgray;
-    font-size: 18px;
+.menu-toggle {
+    display: none;
+    padding: 4px 8px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
 }
+
+
+/* =========================
+   3. Hero section
+========================= */
 
 .hero {
     padding: 40px;
     background-color: white;
-   text-align: center;
+    text-align: center;
+    border-radius: 12px;
 }
+
 .hero a {
-    background: #0f766e;
+    display: inline-block;
+    padding: 12px;
+    background-color: #0f766e;
     color: white;
     text-decoration: none;
-    padding:12px;
-    display:inline-block;
+    border-radius: 8px;
 }
+
+.hero a:hover {
+    background-color: #115e59;
+}
+
+
+/* =========================
+   4. Search section
+========================= */
 
 .search-section {
-    padding:30px;
-    background: white;
+    padding: 30px;
+    background-color: white;
     text-align: center;
-}
-
-.search-section input[type="search"] {
-    padding: 12px;
-    width: 100%;
-    box-sizing: border-box;
-    flex: 1;
-}
-
-.search-section button {
-    background: #0f766e;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-   
-
-}
-
-.search-section button:hover {
-    background: #02302c;
+    border-radius: 12px;
 }
 
 .search-form {
     display: flex;
+    align-items: stretch;
     gap: 10px;
 }
 
-@media (max-width:600px) {
-    .search-form {
-        flex-direction: column;
-    }
-    .search-form input {
-        width: 100%;
-        box-sizing: border-box;
-    }
+.search-form input,
+.search-form select,
+.search-form button {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.search-form input[type="search"] {
+    flex: 1;
+}
+
+.search-form select {
+    flex: 0 1 180px;
+}
+
+.search-form button {
+    background-color: #0f766e;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #115e59;
+}
+
+.search-form button:focus-visible,
+.menu-toggle:focus-visible,
+.nav-links a:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 3px;
 }
 
 
+/* =========================
+   5. Listings layout
+========================= */
 
-/* Residence listing layout */
 #listings {
     max-width: 1100px;
     margin: 30px auto;
@@ -121,69 +172,72 @@ p {
     gap: 18px;
 }
 
-/* Compact residence card */
+
+/* =========================
+   6. Accommodation cards
+========================= */
+
 .accommodation-card {
-    background: white;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
     padding: 18px;
+    background-color: white;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 14px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease,
-                box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .accommodation-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .accommodation-card h3 {
+    margin-top: 0;
     color: #0f766e;
     font-size: 18px;
-    margin-top: 0;
 }
 
 .accommodation-card p {
+    margin: 8px 0;
     color: #475569;
     font-size: 14px;
-    margin: 8px 0;
 }
 
-/* Tablets */
-@media (max-width: 900px) {
-    #accommodation-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.residence-image {
+    display: block;
+    width: 100%;
+    height: 160px;
+    margin-bottom: 12px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-/* Mobile phones */
-@media (max-width: 600px) {
-    #listings {
-        padding: 12px;
-    }
-
-    #accommodation-list {
-        grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .accommodation-card {
-        padding: 16px;
-    }
+.accommodation-price {
+    margin: 12px 0;
+    color: #0f766e;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-
+.accommodation-price span {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: normal;
+}
 
 .details-button {
+    margin-top: 8px;
+    padding: 10px 14px;
     background-color: #0f766e;
     color: white;
     border: none;
-    padding: 10px 14px;
     border-radius: 7px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 8px;
     transition: background-color 0.2s ease;
 }
 
@@ -197,8 +251,43 @@ p {
 }
 
 
+/* =========================
+   7. Facilities preview
+========================= */
 
-/* Residence details panel */
+.facilities-preview {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0fdfa;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.facility-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.facility-tag {
+    display: inline-block;
+    padding: 4px 9px;
+    background-color: white;
+    color: #0f766e;
+    border: 1px solid #99f6e4;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================
+   8. Residence details
+========================= */
+
 #residence-details {
     max-width: 800px;
     margin: 30px auto;
@@ -209,45 +298,179 @@ p {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
 }
 
-#details-content h2 {
-    color: #0f766e;
-    margin-top: 0;
-}
-
-#details-content p {
-    color: #475569;
-    font-size: 16px;
-    margin: 14px 0;
-}
-
 #back-to-listings {
+    margin-bottom: 20px;
+    padding: 10px 14px;
     background: transparent;
     color: #0f766e;
     border: 1px solid #0f766e;
-    padding: 10px 14px;
     border-radius: 7px;
     font-weight: bold;
     cursor: pointer;
-    margin-bottom: 20px;
 }
 
 #back-to-listings:hover {
     background-color: #f0fdfa;
 }
 
-@media (max-width: 600px) {
-    #residence-details {
-        margin: 18px 12px;
-        padding: 18px;
+#details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#details-content h2,
+#details-content h3 {
+    color: #0f766e;
+}
+
+#details-content h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+#details-content h3 {
+    margin-bottom: 8px;
+}
+
+#details-content p {
+    margin: 14px 0;
+    color: #475569;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#details-content .residence-image {
+    width: 100%;
+    max-height: 320px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+
+/* =========================
+   9. Availability status
+========================= */
+
+.availability-status {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #fef3c7;
+    color: #92400e;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.availability-status.available {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.availability-status.fully-booked {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.availability-status.to-be-confirmed {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+
+/* =========================
+   10. Tablet layout
+========================= */
+
+@media (max-width: 900px) {
+    #accommodation-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 
-.residence-image {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    display: block;
+/* =========================
+   11. Mobile layout
+========================= */
+
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    header {
+        padding: 16px 12px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 16px 16px;
+        background-color: #0f766e;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .nav-links.is-open {
+        display: flex;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 14px 10px;
+        font-size: 16px;
+    }
+
+    .hero {
+        padding: 24px 16px;
+    }
+
+    .search-section {
+        padding: 20px 14px;
+    }
+
+    .search-section h2 {
+        font-size: 22px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input,
+    .search-form select,
+    .search-form button {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    #listings {
+        padding: 12px;
+    }
+
+    #accommodation-list {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .accommodation-card {
+        padding: 16px;
+    }
+
+    #residence-details {
+        margin: 18px 0;
+        padding: 18px;
+    }
 }
+
