@@ -9,7 +9,7 @@
 
 body {
     margin: 0;
-    padding: 40px;
+    padding: 24px;
     font-family: Arial, sans-serif;
     background-color: #f4f7fb;
     color: #1e293b;
@@ -77,39 +77,21 @@ header {
     cursor: pointer;
 }
 
-
-/* =========================
-   3. Hero section
-========================= */
-
-.hero {
-    padding: 40px;
-    background-color: white;
-    text-align: center;
-    border-radius: 12px;
-}
-
-.hero a {
-    display: inline-block;
-    padding: 12px;
-    background-color: #0f766e;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-}
-
-.hero a:hover {
-    background-color: #115e59;
+.menu-toggle:focus-visible,
+.nav-links a:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 3px;
 }
 
 
 /* =========================
-   4. Search section
+   3. Search section
 ========================= */
-
 
 .search-section {
-    padding: 35px;
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 28px;
     background: linear-gradient(135deg, #ffffff, #f0fdfa);
     text-align: center;
     border-radius: 16px;
@@ -117,7 +99,24 @@ header {
     border: 1px solid #ccfbf1;
 }
 
+.search-section h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #134e4a;
+    font-size: 28px;
+}
 
+.search-intro {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.search-section p {
+    color: #64748b;
+    line-height: 1.6;
+}
 
 .search-form {
     display: flex;
@@ -126,6 +125,15 @@ header {
     margin-top: 22px;
 }
 
+.search-form input,
+.search-form select,
+.search-form button {
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font: inherit;
+}
 
 .search-form input,
 .search-form select {
@@ -136,6 +144,14 @@ header {
                 box-shadow 0.2s ease;
 }
 
+.search-form input[type="search"] {
+    flex: 1 1 280px;
+}
+
+.search-form select {
+    flex: 0 1 190px;
+}
+
 .search-form input:focus,
 .search-form select:focus {
     outline: none;
@@ -143,52 +159,18 @@ header {
     box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
 }
 
-
-.search-section h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #134e4a;
-}
-
-.search-section p {
-    color: #64748b;
-    margin-bottom: 0;
-    line-height: 1.6;
-}
-
-
-.search-form input,
-.search-form select,
 .search-form button {
-    min-width: 0;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font: inherit;
-}
-
-.search-form input[type="search"] {
-    flex: 1;
-}
-
-.search-form select {
-    flex: 0 1 180px;
-}
-
-.search-form button {
+    flex: 0 0 auto;
+    padding: 10px 24px;
     background-color: #0f766e;
-    color: white;
+    color: #ffffff;
     border: none;
     cursor: pointer;
     font-weight: 600;
+    white-space: nowrap;
     transition: background-color 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
-
-    
-    padding: 10px 20px;
-    white-space: nowrap;
-    border-radius: 8px;
-
 }
 
 .search-form button:hover {
@@ -197,23 +179,29 @@ header {
     box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
 }
 
-
-.search-form button:focus-visible,
-.menu-toggle:focus-visible,
-.nav-links a:focus-visible {
+.search-form button:focus-visible {
     outline: 3px solid #99f6e4;
     outline-offset: 3px;
 }
 
+.search-message {
+    margin-top: 14px;
+    font-size: 14px;
+}
+
 
 /* =========================
-   5. Listings layout
+   4. Listings layout
 ========================= */
 
 #listings {
     max-width: 1100px;
     margin: 30px auto;
     padding: 20px;
+}
+
+#listings h2 {
+    color: #134e4a;
 }
 
 #accommodation-list {
@@ -224,7 +212,7 @@ header {
 
 
 /* =========================
-   6. Accommodation cards
+   5. Accommodation cards
 ========================= */
 
 .accommodation-card {
@@ -236,7 +224,8 @@ header {
     border: 1px solid #e2e8f0;
     border-radius: 14px;
     box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
 }
 
 .accommodation-card:hover {
@@ -306,8 +295,9 @@ header {
     outline-offset: 3px;
 }
 
+
 /* =========================
-   7. Facilities preview
+   6. Facilities preview
 ========================= */
 
 .facilities-preview {
@@ -344,6 +334,75 @@ header {
 
 
 /* =========================
+   7. Room availability
+========================= */
+
+.room-availability {
+    margin: 4px 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.room-availability.available {
+    color: #0f766e;
+}
+
+.room-availability.fully-booked {
+    color: #b91c1c;
+}
+
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 12px 0 20px;
+}
+
+.room-item {
+    padding: 16px;
+    background-color: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 12px;
+}
+
+.room-item h4 {
+    margin: 0 0 10px;
+    color: #0f766e;
+    font-size: 16px;
+}
+
+.room-item p {
+    margin: 6px 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.room-item p:nth-of-type(2) {
+    font-weight: 600;
+}
+
+.room-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.room-status.available {
+    color: #0f766e;
+    background-color: #ccfbf1;
+}
+
+.room-status.not-available {
+    color: #b91c1c;
+    background-color: #fee2e2;
+}
+
+
+/* =========================
    8. Residence details
 ========================= */
 
@@ -351,7 +410,7 @@ header {
     max-width: 800px;
     margin: 30px auto;
     padding: 24px;
-    background-color: white;
+    background-color: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
@@ -370,6 +429,11 @@ header {
 
 #back-to-listings:hover {
     background-color: #f0fdfa;
+}
+
+#back-to-listings:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 3px;
 }
 
 #details-content {
@@ -409,7 +473,7 @@ header {
 
 
 /* =========================
-   9. Availability status
+   9. Residence availability
 ========================= */
 
 .availability-status {
@@ -445,6 +509,22 @@ header {
 @media (max-width: 900px) {
     #accommodation-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .search-section {
+        padding: 24px;
+    }
+
+    .search-form {
+        flex-wrap: wrap;
+    }
+
+    .search-form input[type="search"] {
+        flex-basis: 100%;
+    }
+
+    .search-form select {
+        flex: 1 1 180px;
     }
 }
 
@@ -491,41 +571,36 @@ header {
         font-size: 16px;
     }
 
-    .hero {
-        padding: 24px 16px;
-    }
-
     .search-section {
+        margin: 16px auto;
         padding: 20px 14px;
     }
 
-    .search-section h2 {
+    .search-section h1 {
         font-size: 22px;
+    }
+
+    .search-intro {
+        font-size: 15px;
     }
 
     .search-form {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
+        margin-top: 18px;
     }
 
     .search-form input,
+    .search-form select,
     .search-form button {
         width: 100%;
-        min-height: 44px;
-    }
-
-    .search-form select {
-        display: block;
-        width: 100%;
-        height: 36px;
-        min-height: 36px;
-        padding: 2px 8px;
-        font-size: 14px;
-        line-height: normal;
-        flex: none;
+        min-height: 46px;
+        flex: 1 1 auto;
     }
 
     #listings {
+        margin: 20px auto;
         padding: 12px;
     }
 
@@ -542,72 +617,8 @@ header {
         margin: 18px 0;
         padding: 18px;
     }
+
+    #details-content p {
+        font-size: 15px;
+    }
 }
-
-
-
-/* Room options */
-.room-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin: 12px 0 20px;
-}
-
-.room-item {
-    padding: 16px;
-    background-color: #f0fdfa;
-    border: 1px solid #ccfbf1;
-    border-radius: 12px;
-}
-
-.room-item h4 {
-    margin: 0 0 10px;
-    color: #0f766e;
-    font-size: 16px;
-}
-
-.room-item p {
-    margin: 6px 0;
-    color: #475569;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.room-item p:nth-of-type(2) {
-    font-weight: 600;
-}
-
-.room-availability {
-    margin: 4px 0 10px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.room-availability.available {
-    color: #0f766e;
-}
-
-.room-availability.fully-booked {
-    color: #b91c1c;
-}
-
-.room-status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 8px;
-}
-
-.room-status.available {
-    color: #0f766e;
-    background-color: #ccfbf1;
-}
-
-.room-status.not-available {
-    color: #b91c1c;
-    background-color: #fee2e2;
-}
-
