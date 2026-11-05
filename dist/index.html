@@ -7,37 +7,69 @@
     <meta name="description" content="Find and compare student accommodation in Mankweng.">
     <title>StudentStay | Student Accommodation</title>
 
-  <script type="module" crossorigin src="/student-accomodation-app/assets/index-D-ttw3KX.js"></script>
-  <link rel="stylesheet" crossorigin href="/student-accomodation-app/assets/index-BpevabF9.css">
+  <script type="module" crossorigin src="/student-accomodation-app/assets/main-D116oGuq.js"></script>
+  <link rel="modulepreload" crossorigin href="/student-accomodation-app/assets/firebase-B6WCA3i-.js">
+  <link rel="stylesheet" crossorigin href="/student-accomodation-app/assets/firebase-B9XShXqc.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/" class="logo">StudentStay</a>
+   <header>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="./" class="logo">StudentStay</a>
+
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-nav"
+        >
+            ☰
+        </button>
+
+        <div class="nav-links" id="main-nav">
             <a href="#listings">Find Accommodation</a>
             <a href="#about">About</a>
-        </nav>
-    </header>
+            <a href="submit.html">List Your Property</a>
+        </div>
+    </nav>
+</header>
 
     <main>
-        <section class="hero">
-            <h1>Comfortable Off-Campus Living</h1>
-            <p>
-                Find a place to stay at a price you can afford.
-                Explore rooms and student residences in Mankweng.
-            </p>
-            <a href="#search" class="hero-button">Find Accommodation</a>
-        </section>
+        
 
         <section class="search-section" id="search">
-            <h2>Find Accommodation Near You</h2>
+            <h1>Find Student Accommodation</h1>
+            <p class="search-intro">
+                Search rooms and residences in Mankweng.
+            </p>
 
-            <form class="search-form">
+            <form class="search-form"  id="search-form">
                 <input
                     type="search"
+                    id="location-search"
                     placeholder="Search by location (e.g. Unit E, Gate 2)"
                     aria-label="Search accommodation by location"
                 >
+                
+                
+                <select id="budget-filter" aria-label="Maximum monthly budget">
+                    <option value="">Any budget</option>
+                    <option value="2000">Up to R2,000</option>
+                    <option value="2500">Up to R2,500</option>
+                    <option value="3000">Up to R3,000</option>
+                    <option value="4000">Up to R4,000</option>
+                    <option value="5000">Up to R5,000</option>
+                </select>
+
+                            
+                <select id="sort-filter" aria-label="Sort accommodation by price">
+                    <option value="default">Default order</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+
+
                 <button type="submit">Search</button>
             </form>
 
@@ -56,17 +88,7 @@
             <div id="details-content"></div>
         </section>
 
-        <section id="about" class="about-section">
-            <h2>About StudentStay</h2>
-            <p>
-                StudentStay aims to help students discover accommodation
-                options around Mankweng.
-            </p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 StudentStay. Verify accommodation details before making any payments.</p>
-    </footer>
+    </main> 
 </body>
 </html>
+
