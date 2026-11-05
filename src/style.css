@@ -683,3 +683,108 @@ header {
         box-sizing: border-box;
     }
 }
+
+.image-placeholder {
+    background-color: #f0f4f5;
+    color: #64748b;
+    padding: 35px 15px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+
+/* =========================
+   12. Landlord submission form
+========================= */
+
+.submission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 650px;
+    margin: 25px auto 0;
+    text-align: left;
+}
+
+.submission-form label {
+    color: #134e4a;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+
+.submission-form input,
+.submission-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #334155;
+    font: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.submission-form input:focus,
+.submission-form textarea:focus {
+    outline: none;
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.submission-form textarea {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+
+.submission-form button {
+    margin-top: 15px;
+    padding: 13px 20px;
+    background-color: #0f766e;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.submission-form button:hover {
+    background-color: #115e59;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
+}
+
+.submission-form button:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 3px;
+}
+
+#submission-message {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .submission-form {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .submission-form input,
+    .submission-form textarea,
+    .submission-form button {
+        font-size: 16px;
+    }
+}

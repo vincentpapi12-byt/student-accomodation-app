@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StudentStay administration dashboard.">
+    <title>Admin Dashboard | StudentStay</title>
+
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="site-nav">
+            <a href="./index.html" class="logo">StudentStay</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h1>Admin Dashboard</h1>
+            <p>Manage landlord property submissions.</p>
+
+            <form id="admin-login-form">
+                <label for="admin-email">Email address</label>
+                <input
+                    type="email"
+                    id="admin-email"
+                    required
+                >
+
+                <label for="admin-password">Password</label>
+                <input
+                    type="password"
+                    id="admin-password"
+                    required
+                >
+
+                <button type="submit">Sign In</button>
+                <p id="login-message" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="admin-dashboard" hidden>
+            <h2>Pending Submissions</h2>
+            <p id="admin-message" aria-live="polite"></p>
+            <div id="pending-submissions"></div>
+             
+                <section id="approval-form-section" hidden>
+                    <h2>Complete Accommodation Details</h2>
+
+                    <form id="approval-form">
+                        <label for="accommodation-type">Accommodation Type</label>
+                        <input type="text" id="accommodation-type" required>
+
+                        <label for="monthly-price">Monthly Price (R)</label>
+                        <input type="number" id="monthly-price" min="1" required>
+
+                        <label for="availability">Availability</label>
+                        <input type="text" id="availability" required>
+
+                        <label for="facilities">Facilities</label>
+                        <textarea id="facilities" required></textarea>
+
+                        <h3>Room Options</h3>
+
+                        <div id="room-options-container">
+                            <!-- Room options will be added here -->
+                        </div>
+
+                        <button type="button" id="add-room-button">
+                            + Add Room Option
+                        </button>
+
+                        <button type="submit">Publish Accommodation</button>
+                        <button type="button" id="cancel-approval">Cancel</button>
+                    </form>
+                </section>
+
+            <button type="button" id="logout-button">Sign Out</button>
+        </section>
+    </main>
+
+    <script type="module" src="./src/admin.js"></script>
+</body>
+</html>

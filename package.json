@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "A platform for students to discover and compare accommodation.",
   "main": "index.js",
-
-"scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-},
-
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vincentpapi12-byt/student-accomodation-app.git"
@@ -23,6 +21,7 @@
   },
   "homepage": "https://github.com/vincentpapi12-byt/student-accomodation-app#readme",
   "dependencies": {
+    "firebase": "^13.2.0",
     "vite": "^8.3.5"
   }
 }

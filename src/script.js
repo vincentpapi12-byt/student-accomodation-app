@@ -1,3 +1,18 @@
+import { db, auth } from "./firebase.js";
+
+import {
+    collection,
+    getDocs,
+    query,
+    where
+} from "firebase/firestore";
+
+console.log("Firebase connected!");
+console.log("Firestore:", db);
+console.log("Authentication:", auth);
+
+
+
 // ========================================
 // 1. GET HTML ELEMENTS
 // ========================================
@@ -37,7 +52,7 @@ const locations = [
 // 3. ACCOMMODATION DATA
 // ========================================
 
-const accommodations = [
+let accommodations = [
     {
         location: "gate 2",
         title: "Example Student Residence",
@@ -106,6 +121,43 @@ const accommodations = [
 }
 
 ];
+
+
+
+async function loadAccommodations() {
+    try {
+        const accommodationsQuery = query(
+            collection(db, "accommodations"),
+            where("status", "==", "approved")
+        );
+
+        const querySnapshot = await getDocs(accommodationsQuery);
+
+        accommodations = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+
+            return {
+                id: doc.id,
+                location: data.location?.toLowerCase() || "",
+                title: data.title || "Untitled Residence",
+                price: data.monthlyPrice || 0,
+                accommodationType: data.accommodationType || "Not specified",
+                contact: data.contact || "Contact details not yet confirmed",
+                description: data.description || "Description not yet available",
+                facilities: data.facilities || [],
+                image: data.image || "",
+                rooms: data.rooms || [],
+                availability: data.availability || "To be confirmed"
+            };
+        });
+
+        console.log("Accommodations loaded:", accommodations);
+
+    } catch (error) {
+        console.error("Error loading accommodations:", error);
+        searchMessage.textContent = "Unable to load accommodation listings. Please try again later.";
+    }
+}
 
 
 // ========================================
@@ -183,13 +235,16 @@ const matchingAccommodations = accommodations.filter(
             )
             : accommodation.price;
 
-           const hasAvailableRooms = accommodation.rooms?.some(
-                room => room.available
-            ) ?? false;
+        const availability = accommodation.availability || "To be confirmed";
 
-            const displayAvailability = hasAvailableRooms
-                ? "Available"
-                : "Fully booked";
+        const availabilityClass =
+         availability === "Available"
+           ? "available"
+            : availability === "Fully booked"
+            ? "fully-booked"
+            : "to-be-confirmed";
+
+
 
             const facilitiesPreview = accommodation.facilities?.length
                 ? `
@@ -214,11 +269,14 @@ const matchingAccommodations = accommodations.filter(
 
             accommodationList.innerHTML += `
                 <article class="accommodation-card">
-                    <img
-                        src="${accommodation.image}"
-                        alt="Photo of ${accommodation.title}"
-                        class="residence-image"
-                    >
+                   ${accommodation.image
+                        ? `<img
+                            src="${accommodation.image}"
+                            alt="Photo of ${accommodation.title}"
+                            class="residence-image"
+                        >`
+                        : `<p class="image-placeholder">Photo not yet available.</p>`
+                    }
 
                     <h3>${accommodation.title}</h3>
 
@@ -231,8 +289,8 @@ const matchingAccommodations = accommodations.filter(
                         <span>/ month</span>
                     </p>
 
-                    <p class="room-availability ${hasAvailableRooms ? "available" : "fully-booked"}">
-                        ${hasAvailableRooms ? "Rooms available" : "Fully booked"}
+                    <p class="room-availability ${availabilityClass}">
+                     ${availability}
                     </p>
 
                     <p>
@@ -262,17 +320,14 @@ const matchingAccommodations = accommodations.filter(
                     const accommodation =
                         matchingAccommodations[index];
 
-               const hasAvailableRooms = accommodation.rooms?.some(
-                    room => room.available
-                ) ?? false;
+             const availability = accommodation.availability || "To be confirmed";
 
-                const availability = hasAvailableRooms
-                    ? "Available"
-                    : "Fully booked";
-
-                const availabilityClass = hasAvailableRooms
-                    ? "available"
-                    : "fully-booked";
+                const availabilityClass =
+                 availability === "Available"
+               ? "available"
+                : availability === "Fully booked"
+            ? "fully-booked"
+            : "to-be-confirmed";
 
                     
 const roomsList = accommodation.rooms?.length
@@ -302,11 +357,14 @@ const roomsList = accommodation.rooms?.length
 
                     detailsContent.innerHTML = `
                         <article class="accommodation-card">
-                            <img
-                                src="${accommodation.image}"
-                                alt="Photo of ${accommodation.title}"
-                                class="residence-image"
-                            >
+                           ${accommodation.image
+                                ? `<img
+                                    src="${accommodation.image}"
+                                    alt="Photo of ${accommodation.title}"
+                                    class="residence-image"
+                                >`
+                                : `<p class="image-placeholder">Photo not yet available.</p>`
+                            }
 
                             <h2>${accommodation.title}</h2>
 
@@ -417,3 +475,5 @@ mainNav.querySelectorAll("a").forEach(function (link) {
         menuToggle.textContent = "☰";
     });
 });
+
+loadAccommodations();

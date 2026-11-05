@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit your student accommodation property to StudentStay.">
+    <title>List Your Property | StudentStay</title>
+
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="site-nav">
+            <a href="./index.html" class="logo">StudentStay</a>
+        </nav>
+    </header>
+
+    <main>
+       <section class="search-section">
+    <h1>List Your Property</h1>
+    <p>Submit your accommodation for review by the StudentStay team.</p>
+
+    <form id="submission-form" class="submission-form">
+        <label for="landlord-name">Your name</label>
+        <input
+            type="text"
+            id="landlord-name"
+            name="landlordName"
+            required
+        >
+
+        <label for="landlord-phone">Contact number</label>
+        <input
+            type="tel"
+            id="landlord-phone"
+            name="landlordPhone"
+            required
+        >
+
+        <label for="landlord-email">Email address (optional)</label>
+        <input
+            type="email"
+            id="landlord-email"
+            name="landlordEmail"
+        >
+
+        <label for="property-title">Property name</label>
+        <input
+            type="text"
+            id="property-title"
+            name="propertyTitle"
+            required
+        >
+
+        <label for="property-location">Location</label>
+        <input
+            type="text"
+            id="property-location"
+            name="location"
+            placeholder="e.g. Unit E, Gate 2"
+            required
+        >
+
+        <label for="property-description">Tell us about the accommodation</label>
+        <textarea
+            id="property-description"
+            name="description"
+            rows="5"
+            required
+        ></textarea>
+
+        <button type="submit">Submit Property</button>
+
+        <p id="submission-message" aria-live="polite"></p>
+    </form>
+</section>
+    </main>
+<script type="module" src="./src/submission.js"></script>
+</body>
+</html>
