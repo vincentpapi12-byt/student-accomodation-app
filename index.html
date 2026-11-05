@@ -11,26 +11,39 @@
 </head>
 <body>
    <header>
-    <nav class="site-nav" aria-label="Main navigation">
-        <a href="./" class="logo">StudentStay</a>
+   
+<nav class="site-nav" aria-label="Main navigation">
+    <a href="./" class="logo">StudentStay</a>
 
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="main-nav"
+    >
+        ☰
+    </button>
+
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <div class="nav-links" id="main-nav">
         <button
             type="button"
-            class="menu-toggle"
-            id="menu-toggle"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-            aria-controls="main-nav"
+            class="menu-close"
+            id="menu-close"
+            aria-label="Close navigation menu"
         >
-            ☰
+            &times;
         </button>
 
-        <div class="nav-links" id="main-nav">
-            <a href="#listings">Find Accommodation</a>
-            <a href="#about">About</a>
-            <a href="submit.html">List Your Property</a>
-        </div>
-    </nav>
+        <a href="#listings">Find Accommodation</a>
+        <a href="#about">About</a>
+        <a href="submit.html">List Your Property</a>
+    </div>
+</nav>
+
 </header>
 
     <main>

@@ -451,29 +451,54 @@ backButton.addEventListener("click", function () {
 
 const menuToggle = document.getElementById("menu-toggle");
 const mainNav = document.getElementById("main-nav");
+const menuClose = document.getElementById("menu-close");
+const navOverlay = document.getElementById("nav-overlay");
+
+function openMenu() {
+    mainNav.classList.add("is-open");
+    navOverlay.classList.add("is-open");
+
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Close navigation menu");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeMenu() {
+    mainNav.classList.remove("is-open");
+    navOverlay.classList.remove("is-open");
+
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation menu");
+
+    document.body.style.overflow = "";
+}
 
 menuToggle.addEventListener("click", function () {
-    const isOpen = mainNav.classList.toggle("is-open");
+    const isOpen = mainNav.classList.contains("is-open");
 
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-
-    menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation menu" : "Open navigation menu"
-    );
-
-    menuToggle.textContent = isOpen ? "✕" : "☰";
+    if (isOpen) {
+        closeMenu();
+    } else {
+        openMenu();
+    }
 });
 
+menuClose.addEventListener("click", closeMenu);
+
+navOverlay.addEventListener("click", closeMenu);
+
+// Close menu when a navigation link is selected.
 mainNav.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-        mainNav.classList.remove("is-open");
-
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation menu");
-
-        menuToggle.textContent = "☰";
-    });
+    link.addEventListener("click", closeMenu);
 });
+
+// Close menu when Escape is pressed.
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeMenu();
+    }
+});
+
 
 loadAccommodations();
