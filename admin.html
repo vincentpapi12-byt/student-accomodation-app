@@ -59,6 +59,43 @@
                         <label for="availability">Availability</label>
                         <input type="text" id="availability" required>
 
+                        <label for="accommodation-image">Property Image Path</label>
+                        <input
+                            type="text"
+                            id="accommodation-image"
+                            placeholder="e.g. images/radzilani-exterior.jpeg"
+                        >
+
+                        <label for="electricity-included">
+                            How is electricity charged?
+                        </label>
+
+                        <select id="electricity-included" required>
+                            <option value="">Select an option</option>
+                            <option value="yes">Electricity is free (included in rent)</option>
+                            <option value="no">Students pay for electricity separately</option>
+                        </select>
+                        <label for="wifi-available">How is Wi-Fi provided?</label>
+
+                        <select id="wifi-available" required>
+                            <option value="">Select an option</option>
+                            <option value="included">Wi-Fi is included in the rent</option>
+                            <option value="paid">Wi-Fi is available at an additional cost</option>
+                            <option value="unavailable">Wi-Fi is not available</option>
+                        </select>
+
+                        <label for="wifi-monthly-price">
+                            Wi-Fi cost per student (R/month)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="wifi-monthly-price"
+                            min="0"
+                            step="1"
+                            value="0"
+                        >
+
                         <label for="facilities">Facilities</label>
                         <textarea id="facilities" required></textarea>
 

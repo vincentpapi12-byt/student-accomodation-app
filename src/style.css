@@ -475,6 +475,23 @@ header {
     line-height: 1.6;
 }
 
+
+
+.utilities-details {
+    margin: 8px 0;
+    padding: 14px 16px;
+    background-color: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 10px;
+}
+
+.utilities-details p {
+    margin: 8px 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 #details-content .residence-image {
     width: 100%;
     height: auto;
@@ -842,4 +859,50 @@ header {
     .submission-form button {
         font-size: 16px;
     }
+}
+
+
+/* Compact residence contact icons */
+
+.contact-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.contact-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 8px;
+    text-decoration: none;
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.call-button {
+    background-color: #0f766e;
+    color: white;
+}
+
+.whatsapp-button {
+    background-color: #16a34a;
+    color: white;
+}
+
+.contact-buttons a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.contact-buttons svg {
+    display: block;
+    width: 18px;
+    height: 18px;
 }

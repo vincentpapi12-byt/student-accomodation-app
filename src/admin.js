@@ -300,6 +300,21 @@ approvalForm.addEventListener("submit", async (event) => {
     const availability =
         document.getElementById("availability").value.trim();
 
+    const imagePath = document
+    .getElementById("accommodation-image")
+    .value
+    .trim();
+
+
+    const electricityIncluded =
+    document.getElementById("electricity-included").value === "yes";
+
+    const wifiOption =
+        document.getElementById("wifi-available").value;
+
+    const wifiMonthlyPrice =
+        Number(document.getElementById("wifi-monthly-price").value);
+
     const facilities =
         document.getElementById("facilities").value
             .split(",")
@@ -338,6 +353,22 @@ approvalForm.addEventListener("submit", async (event) => {
 
     if (!availability) {
         alert("Please enter the availability.");
+        return;
+    }
+
+
+    if (!["included", "paid", "unavailable"].includes(wifiOption)) {
+    alert("Please select how Wi-Fi is provided.");
+    return;
+    }
+
+    if (!Number.isFinite(wifiMonthlyPrice) || wifiMonthlyPrice < 0) {
+        alert("Please enter a valid Wi-Fi price.");
+        return;
+    }
+
+    if (wifiOption === "paid" && wifiMonthlyPrice <= 0) {
+        alert("Please enter the monthly Wi-Fi cost.");
         return;
     }
 
@@ -386,11 +417,16 @@ approvalForm.addEventListener("submit", async (event) => {
         accommodationType,
         monthlyPrice,
         availability,
+        electricityIncluded,
+        wifiOption,
+        wifiMonthlyPrice,
         facilities,
         description: submission.description,
         contact: submission.landlordPhone,
         rooms: roomOptions,
-        image: "",
+        image: imagePath
+         ? `${import.meta.env.BASE_URL}${imagePath.replace(/^\/+/, "")}`
+         : "",
         status: "approved",
         submittedAt: submission.submittedAt
     });

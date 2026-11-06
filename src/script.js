@@ -144,11 +144,15 @@ async function loadAccommodations() {
                 accommodationType: data.accommodationType || "Not specified",
                 contact: data.contact || "Contact details not yet confirmed",
                 description: data.description || "Description not yet available",
-                facilities: data.facilities || [],
+               facilities: data.facilities || [],
                 image: data.image || "",
                 rooms: data.rooms || [],
-                availability: data.availability || "To be confirmed"
-            };
+                availability: data.availability || "To be confirmed",
+
+                electricityIncluded: data.electricityIncluded,
+                wifiOption: data.wifiOption,
+                wifiMonthlyPrice: data.wifiMonthlyPrice
+                            };
         });
 
         console.log("Accommodations loaded:", accommodations);
@@ -335,7 +339,7 @@ const roomsList = accommodation.rooms?.length
         <div class="room-list">
             ${accommodation.rooms.map(room => `
                 <div class="room-item">
-                    <h4>${room.type}</h4>
+                    <h4>${room.name}</h4>
                     <p>R${room.price.toLocaleString()} per month</p>
                     <p class="room-status ${room.available ? "available" : "not-available"}">
                         ${room.available ? "Available" : "Not available"}
@@ -347,6 +351,23 @@ const roomsList = accommodation.rooms?.length
     : `
         <p>Room details not yet confirmed.</p>
     `;
+
+
+    const electricityDetails =
+        accommodation.electricityIncluded === true
+            ? "Included in rent (Free)"
+            : accommodation.electricityIncluded === false
+            ? "Paid separately"
+            : "Not yet confirmed";
+
+    const wifiDetails =
+        accommodation.wifiOption === "included"
+            ? "Included in rent (Free)"
+            : accommodation.wifiOption === "paid"
+            ? `Optional — R${Number(accommodation.wifiMonthlyPrice || 0).toLocaleString()} per student/month`
+            : accommodation.wifiOption === "unavailable"
+            ? "Not available"
+            : "Not yet confirmed";
 
 
                     const facilitiesList = accommodation.facilities?.length
@@ -392,6 +413,22 @@ const roomsList = accommodation.rooms?.length
                             <h3>Room options</h3>
                             ${roomsList}
 
+
+
+                            <h3>Utilities & Additional Costs</h3>
+
+                            <div class="utilities-details">
+                                <p>
+                                    <strong>Electricity:</strong>
+                                    ${electricityDetails}
+                                </p>
+
+                                <p>
+                                    <strong>Wi-Fi:</strong>
+                                    ${wifiDetails}
+                                </p>
+                            </div>
+
                             <p>
                                 <strong>Availability:</strong>
                                 <span class="availability-status ${availabilityClass}">
@@ -403,6 +440,60 @@ const roomsList = accommodation.rooms?.length
                                 <strong>Contact:</strong>
                                 ${accommodation.contact}
                             </p>
+                            <div class="contact-buttons">
+                                <a
+                                    href="tel:${accommodation.contact}"
+                                    class="call-button"
+                                    aria-label="Call residence"
+                                    title="Call residence"
+                                >
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                                    19.79 19.79 0 0 1-8.63-3.07
+                                    19.5 19.5 0 0 1-6-6
+                                    19.79 19.79 0 0 1-3.07-8.67
+                                    A2 2 0 0 1 4.11 2h3
+                                    a2 2 0 0 1 2 1.72
+                                    c.12.96.36 1.9.72 2.8
+                                    a2 2 0 0 1-.45 2.11L8.11 9.89
+                                    a16 16 0 0 0 6 6l1.27-1.27
+                                    a2 2 0 0 1 2.11-.45
+                                    c.9.36 1.84.6 2.8.72
+                                    A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                                </a>
+
+                                <a
+                                    href="https://wa.me/${accommodation.contact.replace(/\D/g, "").replace(/^0/, "27")}"
+                                    class="whatsapp-button"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="WhatsApp residence"
+                                    title="WhatsApp residence"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M12.04 2a9.93 9.93 0 0 0-8.51 15.06L2 22l5.11-1.48A9.93 9.93 0 1 0 12.04 2zm0 18.1a8.16 8.16 0 0 1-4.16-1.14l-.3-.18-3.03.88.9-2.95-.2-.3A8.17 8.17 0 1 1 12.04 20.1zm4.49-6.12c-.25-.12-1.48-.73-1.71-.81-.23-.08-.4-.12-.57.12-.17.25-.65.81-.8.98-.15.17-.3.19-.56.06-.25-.12-1.07-.39-2.04-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.3.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.57-1.37-.78-1.88-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.43 1.03 2.6c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.42 1.44.54.61.19 1.17.16 1.61.1.49-.07 1.48-.61 1.69-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.17-.48-.29z"/>
+                                    </svg>
+                                </a>
+                            </div>
 
                             <h3>Facilities</h3>
 
