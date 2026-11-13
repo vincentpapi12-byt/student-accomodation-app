@@ -30,6 +30,15 @@ const residenceDetails = document.getElementById("residence-details");
 const detailsContent = document.getElementById("details-content");
 const backButton = document.getElementById("back-to-listings");
 
+function escapeHTML(text) {
+    return String(text).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[character]);
+}
 
 // ========================================
 // 2. VALID LOCATIONS
@@ -376,6 +385,25 @@ const roomsList = accommodation.rooms?.length
                             .join("")
                         : "<li>Facilities not yet confirmed.</li>";
 
+                    const descriptionLines = String(accommodation.description || "")
+                        .split(/\r?\n/)
+                        .filter(line => line.trim() !== "");
+
+                    const slogan = descriptionLines.shift() || "";
+                    const descriptionBody = descriptionLines.join("\n");
+
+                    const descriptionHTML = `
+                        <p>
+                            <strong>${escapeHTML(slogan)}</strong>
+                            ${descriptionBody
+                                ? `<br>${escapeHTML(descriptionBody).replace(/\n/g, "<br>")}`
+                                : ""}
+                        </p>
+                    `;
+
+
+
+
                     detailsContent.innerHTML = `
                         <article class="accommodation-card">
                            ${accommodation.image
@@ -389,7 +417,7 @@ const roomsList = accommodation.rooms?.length
 
                             <h2>${accommodation.title}</h2>
 
-                            <p>${accommodation.description}</p>
+                           ${descriptionHTML}
 
                             <p>
                                 <strong>Location:</strong>
