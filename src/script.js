@@ -333,6 +333,12 @@ const matchingAccommodations = accommodations.filter(
                     const accommodation =
                         matchingAccommodations[index];
 
+                const residenceImages = accommodation.images?.length
+                ? accommodation.images
+                : accommodation.image
+                    ? [accommodation.image]
+                    : [];
+
              const availability = accommodation.availability || "To be confirmed";
 
                 const availabilityClass =
@@ -425,14 +431,36 @@ const roomsList = accommodation.rooms?.length
 
                     detailsContent.innerHTML = `
                         <article class="accommodation-card">
-                           ${accommodation.image
-                                ? `<img
-                                    src="${accommodation.image}"
-                                    alt="Photo of ${accommodation.title}"
-                                    class="residence-image"
-                                >`
-                                : `<p class="image-placeholder">Photo not yet available.</p>`
-                            }
+                         ${residenceImages.length
+    ? `
+        <div class="residence-gallery">
+            <img
+                src="${residenceImages[0]}"
+                alt="Photo of ${accommodation.title}"
+                class="residence-image gallery-main-image"
+            >
+
+            ${residenceImages.length > 1
+                ? `
+                    <div class="gallery-thumbnails">
+                        ${residenceImages.map((image, index) => `
+                            <button
+                                type="button"
+                                class="gallery-thumbnail"
+                                data-image-index="${index}"
+                                aria-label="View photo ${index + 1}"
+                            >
+                                <img src="${image}" alt="">
+                            </button>
+                        `).join("")}
+                    </div>
+                `
+                : ""
+            }
+        </div>
+    `
+    : `<p class="image-placeholder">Photo not yet available.</p>`
+}
 
                             <h2>${accommodation.title}</h2>
 
@@ -549,6 +577,23 @@ const roomsList = accommodation.rooms?.length
                             </ul>
                         </article>
                     `;
+
+                    // Make gallery thumbnails clickable
+                    const mainGalleryImage = detailsContent.querySelector(
+                        ".gallery-main-image"
+                    );
+
+                    const galleryThumbnails = detailsContent.querySelectorAll(
+                        ".gallery-thumbnail"
+                    );
+
+                    galleryThumbnails.forEach(thumbnail => {
+                        thumbnail.addEventListener("click", function () {
+                            const imageIndex = Number(this.dataset.imageIndex);
+
+                            mainGalleryImage.src = residenceImages[imageIndex];
+                        });
+                    });
 
                     listingsSection.hidden = true;
                     residenceDetails.hidden = false;
