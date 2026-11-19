@@ -346,15 +346,34 @@ const matchingAccommodations = accommodations.filter(
 const roomsList = accommodation.rooms?.length
     ? `
         <div class="room-list">
-            ${accommodation.rooms.map(room => `
-                <div class="room-item">
-                    <h4>${room.name}</h4>
-                    <p>R${room.price.toLocaleString()} per month</p>
-                    <p class="room-status ${room.available ? "available" : "not-available"}">
-                        ${room.available ? "Available" : "Not available"}
-                    </p>
-                </div>
-            `).join("")}
+            ${accommodation.rooms.map(room => {
+                const totalRooms = room.quantity ?? null;
+                const availableRooms = room.availableRooms ?? null;
+
+                const hasRoomCounts =
+                    Number.isInteger(totalRooms) &&
+                    Number.isInteger(availableRooms);
+
+                const isAvailable = hasRoomCounts
+                    ? availableRooms > 0
+                    : room.available;
+
+                return `
+                    <div class="room-item">
+                        <h4>${room.name}</h4>
+                        <p>R${room.price.toLocaleString()} per month</p>
+
+                        ${hasRoomCounts
+                            ? `<p>${totalRooms} total rooms · ${availableRooms} available</p>`
+                            : ""
+                        }
+
+                        <p class="room-status ${isAvailable ? "available" : "not-available"}">
+                            ${isAvailable ? "Available" : "Not available"}
+                        </p>
+                    </div>
+                `;
+            }).join("")}
         </div>
     `
     : `

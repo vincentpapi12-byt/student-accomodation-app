@@ -59,6 +59,29 @@ function addRoomOption() {
     roomPriceInput.min = "1";
     roomPriceInput.required = true;
 
+
+    const roomQuantityLabel = document.createElement("label");
+    roomQuantityLabel.textContent = "Total Rooms";
+
+    const roomQuantityInput = document.createElement("input");
+    roomQuantityInput.type = "number";
+    roomQuantityInput.className = "room-quantity";
+    roomQuantityInput.min = "1";
+    roomQuantityInput.step = "1";
+    roomQuantityInput.placeholder = "e.g. 4";
+    roomQuantityInput.required = true;
+
+    const availableRoomsLabel = document.createElement("label");
+    availableRoomsLabel.textContent = "Available Rooms";
+
+    const availableRoomsInput = document.createElement("input");
+    availableRoomsInput.type = "number";
+    availableRoomsInput.className = "room-available";
+    availableRoomsInput.min = "0";
+    availableRoomsInput.step = "1";
+    availableRoomsInput.placeholder = "e.g. 2";
+    availableRoomsInput.required = true;
+
     const removeRoomButton = document.createElement("button");
           removeRoomButton.type = "button";
           removeRoomButton.textContent = "Remove Room";
@@ -71,8 +94,12 @@ function addRoomOption() {
         roomNameLabel,
         roomNameInput,
         roomPriceLabel,
-        removeRoomButton,
-        roomPriceInput
+        roomPriceInput,
+        roomQuantityLabel,
+        roomQuantityInput,
+        availableRoomsLabel,
+        availableRoomsInput,
+        removeRoomButton
     );
 
     roomOptionsContainer.appendChild(roomDiv);
@@ -321,23 +348,54 @@ approvalForm.addEventListener("submit", async (event) => {
             .map(facility => facility.trim())
             .filter(facility => facility !== "");
 
-        const roomOptions = [];
+    const roomOptions = [];
 
     const roomDivs = document.querySelectorAll(".room-option");
 
-       roomDivs.forEach((roomDiv) => {
-        const roomName = roomDiv.querySelector(".room-name").value.trim();
+    let invalidRoomDetails = false;
 
-        const roomPrice = Number(
-            roomDiv.querySelector(".room-price").value
-        );
+roomDivs.forEach((roomDiv) => {
+    const roomName = roomDiv.querySelector(".room-name").value.trim();
 
-        roomOptions.push({
-            name: roomName,
-            price: roomPrice,
-            available: true
-        });
+    const roomPrice = Number(
+        roomDiv.querySelector(".room-price").value
+    );
+
+    const quantity = Number(
+        roomDiv.querySelector(".room-quantity").value
+    );
+
+    const availableRooms = Number(
+        roomDiv.querySelector(".room-available").value
+    );
+
+
+    if (
+    !roomName ||
+    !Number.isFinite(roomPrice) ||
+    roomPrice <= 0 ||
+    !Number.isInteger(quantity) ||
+    quantity <= 0 ||
+    !Number.isInteger(availableRooms) ||
+    availableRooms < 0 ||
+    availableRooms > quantity
+) {
+    alert("Please enter valid room details. Available rooms cannot exceed total rooms.");
+    invalidRoomDetails = true;
+    return;
+}
+
+    roomOptions.push({
+        name: roomName,
+        price: roomPrice,
+        quantity,
+        availableRooms
     });
+});
+
+if (invalidRoomDetails) {
+    return;
+}
 
     // VALIDATE APPROVAL FORM
 
