@@ -599,7 +599,10 @@ const previousButton = detailsContent.querySelector(".gallery-prev");
 const nextButton = detailsContent.querySelector(".gallery-next");
 
 let currentImageIndex = 0;
-showGalleryImage(0);
+
+if (residenceImages.length > 0) {
+    showGalleryImage(0);
+}
 
 function showGalleryImage(index) {
     currentImageIndex =
