@@ -1039,6 +1039,11 @@ header {
     padding-bottom: 8px;
 }
 
+.gallery-thumbnail.active {
+    border: 2px solid #0d9488;
+    opacity: 1;
+}
+
 .gallery-thumbnail {
     flex: 0 0 90px;
     height: 70px;
@@ -1086,4 +1091,26 @@ header {
 .gallery-prev:hover,
 .gallery-next:hover {
     background: rgba(0, 0, 0, 0.85);
+}
+
+
+
+
+@media (max-width: 600px) {
+    .gallery-main-image {
+        height: 230px;
+        border-radius: 10px;
+    }
+
+    .gallery-thumbnail {
+        flex: 0 0 75px;
+        height: 60px;
+    }
+
+    .gallery-prev,
+    .gallery-next {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+    }
 }

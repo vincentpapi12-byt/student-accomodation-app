@@ -599,12 +599,20 @@ const previousButton = detailsContent.querySelector(".gallery-prev");
 const nextButton = detailsContent.querySelector(".gallery-next");
 
 let currentImageIndex = 0;
+showGalleryImage(0);
 
 function showGalleryImage(index) {
     currentImageIndex =
         (index + residenceImages.length) % residenceImages.length;
 
     mainGalleryImage.src = residenceImages[currentImageIndex];
+
+    galleryThumbnails.forEach((thumbnail, thumbnailIndex) => {
+        thumbnail.classList.toggle(
+            "active",
+            thumbnailIndex === currentImageIndex
+        );
+    });
 }
 
                     // Thumbnail clicks
