@@ -40,6 +40,16 @@ function escapeHTML(text) {
     })[character]);
 }
 
+
+function handleImageError(image) {
+    const placeholder = document.createElement("p");
+
+    placeholder.className = "image-placeholder";
+    placeholder.textContent = "Photo not available.";
+
+    image.replaceWith(placeholder);
+}
+
 // ========================================
 // 2. VALID LOCATIONS
 // ========================================
@@ -323,6 +333,16 @@ const matchingAccommodations = accommodations.filter(
             `;
         });
 
+
+    // Handle broken images in residence cards
+    accommodationList.querySelectorAll("img").forEach(image => {
+        image.addEventListener("error", function () {
+            handleImageError(this);
+        }, { once: true });
+    });
+
+
+
         // ========================================
         // 6. VIEW FULL RESIDENCE DETAILS
         // ========================================
@@ -590,6 +610,11 @@ const roomsList = accommodation.rooms?.length
 const mainGalleryImage = detailsContent.querySelector(
     ".gallery-main-image"
 );
+
+
+mainGalleryImage?.addEventListener("error", function () {
+    handleImageError(this);
+}, { once: true });
 
 const galleryThumbnails = detailsContent.querySelectorAll(
     ".gallery-thumbnail"
