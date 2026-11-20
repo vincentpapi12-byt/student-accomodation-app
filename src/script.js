@@ -155,6 +155,7 @@ async function loadAccommodations() {
                 description: data.description || "Description not yet available",
                facilities: data.facilities || [],
                 image: data.image || "",
+                images: data.images || [],
                 rooms: data.rooms || [],
                 availability: data.availability || "To be confirmed",
 
@@ -431,9 +432,10 @@ const roomsList = accommodation.rooms?.length
 
                     detailsContent.innerHTML = `
                         <article class="accommodation-card">
-                         ${residenceImages.length
+                        ${residenceImages.length
     ? `
         <div class="residence-gallery">
+
             <img
                 src="${residenceImages[0]}"
                 alt="Photo of ${accommodation.title}"
@@ -442,6 +444,12 @@ const roomsList = accommodation.rooms?.length
 
             ${residenceImages.length > 1
                 ? `
+                    <button type="button" class="gallery-prev"
+                        aria-label="Previous photo">&#10094;</button>
+
+                    <button type="button" class="gallery-next"
+                        aria-label="Next photo">&#10095;</button>
+
                     <div class="gallery-thumbnails">
                         ${residenceImages.map((image, index) => `
                             <button
@@ -457,11 +465,11 @@ const roomsList = accommodation.rooms?.length
                 `
                 : ""
             }
+
         </div>
     `
     : `<p class="image-placeholder">Photo not yet available.</p>`
 }
-
                             <h2>${accommodation.title}</h2>
 
                            ${descriptionHTML}
@@ -578,21 +586,43 @@ const roomsList = accommodation.rooms?.length
                         </article>
                     `;
 
-                    // Make gallery thumbnails clickable
-                    const mainGalleryImage = detailsContent.querySelector(
-                        ".gallery-main-image"
-                    );
+                   // Gallery navigation
+const mainGalleryImage = detailsContent.querySelector(
+    ".gallery-main-image"
+);
 
-                    const galleryThumbnails = detailsContent.querySelectorAll(
-                        ".gallery-thumbnail"
-                    );
+const galleryThumbnails = detailsContent.querySelectorAll(
+    ".gallery-thumbnail"
+);
 
+const previousButton = detailsContent.querySelector(".gallery-prev");
+const nextButton = detailsContent.querySelector(".gallery-next");
+
+let currentImageIndex = 0;
+
+function showGalleryImage(index) {
+    currentImageIndex =
+        (index + residenceImages.length) % residenceImages.length;
+
+    mainGalleryImage.src = residenceImages[currentImageIndex];
+}
+
+                    // Thumbnail clicks
                     galleryThumbnails.forEach(thumbnail => {
                         thumbnail.addEventListener("click", function () {
                             const imageIndex = Number(this.dataset.imageIndex);
-
-                            mainGalleryImage.src = residenceImages[imageIndex];
+                            showGalleryImage(imageIndex);
                         });
+                    });
+
+                    // Previous arrow
+                    previousButton?.addEventListener("click", function () {
+                        showGalleryImage(currentImageIndex - 1);
+                    });
+
+                    // Next arrow
+                    nextButton?.addEventListener("click", function () {
+                        showGalleryImage(currentImageIndex + 1);
                     });
 
                     listingsSection.hidden = true;
